@@ -224,10 +224,10 @@ function MainDashboard({ currentView, setCurrentView, isDark }: { currentView: V
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentView}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.3 }}
+                initial={{ opacity: 0, filter: 'blur(10px)', scale: 0.98 }}
+                animate={{ opacity: 1, filter: 'blur(0px)', scale: 1 }}
+                exit={{ opacity: 0, filter: 'blur(10px)', scale: 1.02 }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
               >
                 {renderContent()}
               </motion.div>
@@ -501,42 +501,249 @@ function EgoDepthVisual() {
 }
 
 function PsycheDeptView() {
-  return (
-    <div className="space-y-16 pb-24 text-white">
-      <div className="flex flex-col md:flex-row md:items-end justify-between border-b-2 border-white/20 pb-4 gap-4">
-        <div>
-          <div className="text-gold-600 font-black tracking-[0.3em] text-xs mb-1 uppercase font-mono">P.S.Y.C.H.E DEPARTMENTS</div>
-          <h2 className="text-5xl font-black text-white tracking-tight">집행부 편제</h2>
-        </div>
-        <div className="text-[10px] font-mono opacity-40 uppercase tracking-widest text-right">
-          Dept_Auth: [CLASSIFIED]<br/>
-          Doc_ID: DPT-{Math.random().toString(36).substr(2, 6).toUpperCase()}
-        </div>
-      </div>
+  const [selectedDeptId, setSelectedDeptId] = useState<string | null>(null);
+  const [selectedMemberId, setSelectedMemberId] = useState<string | null>(null);
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        {PSYCHE_DEPTS.map((dept) => (
-          <div key={dept.id} className="relative group overflow-hidden border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition-colors">
-            <div className="absolute top-0 right-0 p-3 opacity-20 group-hover:opacity-100 transition-opacity">
-              <span className="font-mono text-xs uppercase tracking-widest" style={{ color: dept.color === 'mint-black' ? '#6EE7B7' : (dept.color || '#C6A34F') }}>[{dept.id.replace('dep-', '')}]</span>
-            </div>
-            <h3 className="text-2xl font-black mb-2 uppercase font-display" style={dept.color && dept.id !== 'dep-wais-wisc' ? { color: dept.color } : {}}>
-              {dept.id === 'dep-wais-wisc' ? (
-                <>
-                  <span style={{ color: '#6EE7B7' }}>WAIS</span>
-                  <span style={{ color: '#ffffff' }}>, </span>
-                  <span style={{ color: '#000000', textShadow: '-1px -1px 0 #6EE7B7, 1px -1px 0 #6EE7B7, -1px 1px 0 #6EE7B7, 1px 1px 0 #6EE7B7' }}>WISC</span>
-                  <span style={{ color: '#6EE7B7' }}> 부서</span>
-                </>
-              ) : (
-                dept.title
-              )}
-            </h3>
-            <div className="w-8 h-1 mb-6" style={{ backgroundColor: dept.color === 'mint-black' ? '#6EE7B7' : (dept.color || '#C6A34F') }} />
-            <p className="text-sm text-white/70 font-light leading-relaxed max-w-sm whitespace-pre-line group-hover:text-white transition-colors">{dept.description}</p>
+  const selectedDept = PSYCHE_DEPTS.find(d => d.id === selectedDeptId);
+  const selectedMember = selectedDept?.subContent?.find(m => m.id === selectedMemberId);
+
+  return (
+    <AnimatePresence mode="wait">
+      {selectedMemberId && selectedMember ? (
+        <motion.div 
+          key="member-profile"
+          initial={{ opacity: 0, filter: 'blur(10px)', scale: 0.98 }}
+          animate={{ opacity: 1, filter: 'blur(0px)', scale: 1 }}
+          exit={{ opacity: 0, filter: 'blur(10px)', scale: 1.02 }}
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          className="pb-24"
+        >
+          <div className="mb-8">
+            <button 
+              onClick={() => setSelectedMemberId(null)}
+              className="text-gold-600 font-black tracking-[0.3em] text-xs mb-1 uppercase font-mono hover:text-white transition-colors flex items-center gap-2"
+            >
+              <ArrowRight className="rotate-180" size={14} /> BACK_TO_{selectedDept?.id.replace('dep-', '').toUpperCase() || 'DEPARTMENT'}
+            </button>
           </div>
-        ))}
+          <CharacterProfileView entry={selectedMember} onBack={() => setSelectedMemberId(null)} />
+        </motion.div>
+      ) : selectedDeptId && selectedDept ? (
+        <motion.div 
+          key="dept-detail"
+          initial={{ opacity: 0, filter: 'blur(10px)', scale: 0.98 }}
+          animate={{ opacity: 1, filter: 'blur(0px)', scale: 1 }}
+          exit={{ opacity: 0, filter: 'blur(10px)', scale: 1.02 }}
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          className="space-y-16 pb-24 text-white"
+        >
+          <div className="flex flex-col md:flex-row md:items-end justify-between border-b-2 border-white/20 pb-4 gap-4">
+            <div>
+              <button 
+                onClick={() => setSelectedDeptId(null)}
+                className="text-gold-600 font-black tracking-[0.3em] text-xs mb-1 uppercase font-mono hover:text-white transition-colors flex items-center gap-2"
+              >
+                <ArrowRight className="rotate-180" size={14} /> BACK_TO_DEPARTMENTS
+              </button>
+              <h2 className="text-5xl font-black text-white tracking-tight">{selectedDept.title}</h2>
+            </div>
+            <div className="text-[10px] font-mono opacity-40 uppercase tracking-widest text-right">
+              Dept_ID: {selectedDept.id.toUpperCase()}<br/>
+              Access_Level: [AUTHORIZED]
+            </div>
+          </div>
+
+          <div className="max-w-4xl">
+            <p className="text-xl text-white/80 font-light mb-12 leading-relaxed border-l-2 border-gold-500 pl-6">
+              {selectedDept.description}
+            </p>
+
+            <div className="space-y-4">
+              <h4 className="text-xs font-mono text-gold-500 tracking-[0.4em] uppercase mb-8">PERSONNEL_REGISTRY</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {selectedDept.subContent?.map((member, idx) => (
+                  <motion.button 
+                    key={member.id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: idx * 0.1 }}
+                    onClick={() => setSelectedMemberId(member.id)}
+                    className="p-6 border border-white/10 bg-white/5 flex items-center justify-between group hover:bg-gold-500/10 transition-colors text-left"
+                  >
+                    <span className="text-2xl font-black text-white tracking-tighter uppercase">{member.title}</span>
+                    <div className="flex items-center gap-4">
+                       {member.profile && <span className="text-[10px] font-mono text-gold-500 opacity-0 group-hover:opacity-100 transition-opacity uppercase">View_Dossier</span>}
+                       <div className="w-12 h-[1px] bg-white/20 group-hover:bg-gold-500 transition-colors" />
+                    </div>
+                  </motion.button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      ) : (
+        <motion.div 
+          key="dept-list"
+          initial={{ opacity: 0, filter: 'blur(10px)', scale: 0.98 }}
+          animate={{ opacity: 1, filter: 'blur(0px)', scale: 1 }}
+          exit={{ opacity: 0, filter: 'blur(10px)', scale: 1.02 }}
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          className="space-y-16 pb-24 text-white"
+        >
+          <div className="flex flex-col md:flex-row md:items-end justify-between border-b-2 border-white/20 pb-4 gap-4">
+            <div>
+              <div className="text-gold-600 font-black tracking-[0.3em] text-xs mb-1 uppercase font-mono">P.S.Y.C.H.E DEPARTMENTS</div>
+              <h2 className="text-5xl font-black text-white tracking-tight">집행부 편제</h2>
+            </div>
+            <div className="text-[10px] font-mono opacity-40 uppercase tracking-widest text-right">
+              Dept_Auth: [CLASSIFIED]<br/>
+              Doc_ID: DPT-INFO_CORE
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {PSYCHE_DEPTS.map((dept, idx) => (
+              <motion.button 
+                key={dept.id} 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.05 }}
+                onClick={() => setSelectedDeptId(dept.id)}
+                className="relative group overflow-hidden border border-white/10 bg-white/5 p-6 hover:bg-white/10 transition-colors text-left"
+              >
+                <div className="absolute top-0 right-0 p-3 opacity-20 group-hover:opacity-100 transition-opacity">
+                  <span className="font-mono text-xs uppercase tracking-widest" style={{ color: dept.color === 'mint-black' ? '#6EE7B7' : (dept.color || '#C6A34F') }}>[{dept.id.replace('dep-', '')}]</span>
+                </div>
+                <h3 className="text-2xl font-black mb-2 uppercase font-display" style={dept.color && dept.id !== 'dep-wais-wisc' ? { color: dept.color } : {}}>
+                  {dept.id === 'dep-wais-wisc' ? (
+                    <>
+                      <span style={{ color: '#6EE7B7' }}>WAIS</span>
+                      <span style={{ color: '#ffffff' }}>, </span>
+                      <span style={{ color: '#000000', textShadow: '-1px -1px 0 #6EE7B7, 1px -1px 0 #6EE7B7, -1px 1px 0 #6EE7B7, 1px 1px 0 #6EE7B7' }}>WISC</span>
+                      <span style={{ color: '#6EE7B7' }}> 부서</span>
+                    </>
+                  ) : (
+                    dept.title
+                  )}
+                </h3>
+                <div className="w-8 h-1 mb-6" style={{ backgroundColor: dept.color === 'mint-black' ? '#6EE7B7' : (dept.color || '#C6A34F') }} />
+                <p className="text-sm text-white/70 font-light leading-relaxed max-w-sm whitespace-pre-line group-hover:text-white transition-colors">{dept.description}</p>
+                
+                <div className="mt-8 flex justify-end opacity-0 group-hover:opacity-100 transition-opacity translate-x-4 group-hover:translate-x-0 transition-transform">
+                  <ArrowRight className="text-gold-500" size={20} />
+                </div>
+              </motion.button>
+            ))}
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
+function CharacterProfileView({ entry, onBack }: { entry: LoreEntry, onBack: () => void }) {
+  const { profile } = entry;
+  if (!profile) {
+    return (
+      <div className="p-12 border-2 border-white/10 bg-white/5 text-center">
+        <p className="text-white/40 font-mono uppercase tracking-widest mb-4">No dossier available for this personnel.</p>
+        <button onClick={onBack} className="text-gold-500 font-bold hover:underline">Return to department</button>
       </div>
+    );
+  }
+
+  return (
+    <div className="pb-12 text-black bg-[#fdfcf8] p-6 md:p-12 border-2 border-black/10 shadow-2xl relative overflow-hidden mx-auto max-w-4xl">
+        {/* Document Header */}
+        <div className="flex flex-col md:flex-row justify-between items-start border-b-4 border-black pb-8 gap-8">
+            <div>
+                <h2 className="text-4xl font-black tracking-tighter mb-2">입사지원서류</h2>
+                <p className="font-mono text-xs opacity-50 uppercase">P.S.Y.C.H.E PERSONNEL_DOSSIER // CLASSIFIED // No_{Math.floor(Math.random() * 100000)}</p>
+                <div className="mt-4 flex gap-2">
+                    <span className="px-2 py-1 bg-black text-white text-[10px] font-bold">TYPE: FIELD_AGENT</span>
+                    <span className="px-2 py-1 border border-black text-[10px] font-bold">AUTH: LV_03</span>
+                </div>
+            </div>
+            <div className="w-32 h-40 border-2 border-black/20 flex items-center justify-center bg-white/50 relative shrink-0">
+                <span className="text-[10px] font-mono opacity-30 text-center px-4">PHOTO_REDACTED or_UNAVAILABLE</span>
+                {entry.id === 'p-seonsaeng' && (
+                    <motion.div 
+                      initial={{ scale: 0.8, rotate: 10, opacity: 0 }}
+                      animate={{ scale: 1, rotate: 3, opacity: 1 }}
+                      className="absolute inset-4 bg-yellow-100 border border-yellow-200 flex items-center justify-center shadow-sm z-10"
+                    >
+                         <span className="text-2xl font-mono text-yellow-800 font-bold opacity-30">?</span>
+                         <span className="absolute bottom-1 right-2 text-[8px] font-mono text-yellow-800">MEMO</span>
+                    </motion.div>
+                )}
+            </div>
+        </div>
+
+        {/* Basic Info Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-black border border-black my-8">
+            <InfoCell label="성명 (NAME)" value={entry.title} />
+            <InfoCell label="성별 (GENDER)" value={profile.gender || 'N/A'} />
+            <InfoCell label="소속 (DEPT)" value={profile.department || 'N/A'} />
+            <InfoCell label="무장 (WEAPON)" value={profile.weapon || 'N/A'} />
+        </div>
+
+        {/* Content Section */}
+        <div className="space-y-12">
+            <div>
+                <h4 className="text-xs font-black border-l-4 border-black pl-3 mb-4 bg-black/5 py-1 uppercase tracking-widest">성격 키워드 (PERSONALITY_KEYWORDS)</h4>
+                <div className="flex flex-wrap gap-2">
+                    {profile.personalityKeywords?.map(kw => (
+                        <span key={kw} className="px-4 py-1.5 bg-white border-2 border-black font-black text-sm tracking-tight shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                          {kw}
+                        </span>
+                    ))}
+                </div>
+            </div>
+
+            <div>
+                <h4 className="text-xs font-black border-l-4 border-black pl-3 mb-4 bg-black/5 py-1 uppercase tracking-widest">특징 (REMARKS / BIOMETRIC_FEATURES)</h4>
+                <ul className="space-y-4">
+                     {profile.features?.map((f, i) => (
+                         <li key={i} className="flex gap-4 items-start text-sm leading-relaxed border-b border-black/5 pb-2">
+                            <span className="font-mono opacity-20 mt-1 shrink-0">CODE_{String(i+1).padStart(2, '0')}</span>
+                            <span className="font-medium">{f}</span>
+                         </li>
+                     ))}
+                </ul>
+            </div>
+        </div>
+
+        {/* Footer / Stamps */}
+        <div className="mt-16 pt-8 border-t border-black/10 flex justify-between items-end">
+            <div className="text-[10px] font-mono opacity-40 leading-tight">
+                DOCUMENT_STATUS: ARCHIVED<br/>
+                TIMESTAMP: {new Date().toLocaleDateString()}<br/>
+                LOCATION: P.S.Y.C.H.E HQ // SECTOR_G
+            </div>
+            <div className="relative">
+                <div className="w-20 h-20 rounded-full border-4 border-red-600/30 flex items-center justify-center -rotate-12 -mr-6 -mb-4">
+                    <span className="text-[10px] font-black text-red-600/40 text-center leading-none uppercase tracking-tighter">
+                      PSYCHE<br/>OFFICIAL<br/>SEAL
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <button 
+          onClick={onBack}
+          className="absolute top-4 right-4 p-2 hover:bg-black/5 transition-colors border border-transparent hover:border-black/10 rounded"
+        >
+          <X size={20} />
+        </button>
     </div>
   );
+}
+
+function InfoCell({ label, value }: { label: string, value: string }) {
+    return (
+        <div className="bg-[#fdfcf8] p-5 flex flex-col gap-1">
+            <span className="text-[10px] font-mono opacity-40 uppercase font-black">{label}</span>
+            <span className="text-2xl font-black tracking-tighter uppercase italic">{value}</span>
+        </div>
+    );
 }

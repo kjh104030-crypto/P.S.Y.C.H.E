@@ -1,5 +1,13 @@
 export type WorldSection = 'factions' | 'terms' | 'ego' | 'characters';
 
+export interface CharacterProfile {
+  gender?: string;
+  department?: string;
+  weapon?: string;
+  personalityKeywords?: string[];
+  features?: string[];
+}
+
 export interface LoreEntry {
   id: string;
   title: string;
@@ -7,6 +15,7 @@ export interface LoreEntry {
   subContent?: LoreEntry[];
   example?: string;
   color?: string;
+  profile?: CharacterProfile;
 }
 
 export const FACTIONS: LoreEntry[] = [
@@ -80,14 +89,115 @@ export const TERMS: LoreEntry[] = [
 ];
 
 export const PSYCHE_DEPTS: LoreEntry[] = [
-  { id: 'dep-identity', title: '인격 소실 관찰부', description: '자아 해리성 정체감 중첩도를 담당하는 부서. 가스라이터와 샤덴프로이데의 검거를 담당하기도 한다.', color: '#9CA3AF' },
-  { id: 'dep-bender', title: '벤더 게슈탈트 부서', description: '프시케의 교육을 담당하는 부서. Bender-Gestalt Test, 일명 BGT를 통해 프시케를 교육시킨다.', color: '#22C55E' },
-  { id: 'dep-thematic', title: '주제통각 정보부', description: '정신 공간 인지 재해 집행부 내부의 정보를 정리하는 부서. 커피를 달고 산다.', color: '#C6A34F' },
-  { id: 'dep-rorschach', title: '로르샤흐 부서', description: '정신 공간 인지 재해 집행부 내부의 상담을 담당하는 부서이자 침잠으로 개방된 자아심도를 담당한다. 자아심도 내부의 현상체와 상호작용 하여 드림 코어로 접근한다.', color: '#FEF08A' },
-  { id: 'dep-htp', title: 'H.T.P 부서', description: '예술가들로 이루어진 부서. 자아심도 내부의 배경을 분석하여 어느 감정들이 섞여 만들어진 자아심도인지를 추론해 드림 코어로 한결 수월하게 접근한다.', color: '#A855F7' },
-  { id: 'dep-wais-wisc', title: 'WAIS, WISC 부서', description: '보통 \'웩슬러 부서\' 또는 \'쌍둥이 부서\'라고 불린다. 본래 떨어져있던 두 부서가 통합된 것으로, 초자아 또는 이드를 담당한다.', color: 'mint-black' },
-  { id: 'dep-superego', title: '초자아 징계부', description: '정신 공간 인지 재해 집행부 내부의 질서를 바로잡는 부서. 자아심도를 받아들여 장신구가 있는 자들로 구성된다.', color: '#991B1B' },
-  { id: 'dep-sigmund', title: '지그문트 부서', description: '새로 창설된 부서. 포괄적인 업무를 담당받는다.', color: '#FFFFFF' }
+  { 
+    id: 'dep-identity', 
+    title: '인격 소실 관찰부', 
+    description: '자아 해리성 정체감 중첩도를 담당하는 부서. 가스라이터와 샤덴프로이데의 검거를 담당하기도 한다.', 
+    color: '#9CA3AF',
+    subContent: [
+      { id: 'member-1', title: '에이달라나', description: '소속 요원' },
+      { id: 'member-2', title: '에이프릴', description: '소속 요원' },
+      { id: 'member-3', title: '밀리건', description: '소속 요원' },
+      { 
+        id: 'p-seonsaeng', 
+        title: "'선생'", 
+        description: '소속 요원',
+        profile: {
+          gender: '女',
+          department: '인격 소실 관찰부',
+          weapon: '권총',
+          personalityKeywords: ['유순한', '공감하는', '다정한'],
+          features: [
+            '포스트잇으로 얼굴을 가려 좀처럼 눈을 볼 수 없다',
+            '본명은 밝히지 않고 있다',
+            '누군가를 부를 때 ~씨를 붙인다 (ex: 에이프릴 씨, 밀리건 씨)'
+          ]
+        }
+      }
+    ]
+  },
+  { 
+    id: 'dep-bender', 
+    title: '벤더 게슈탈트 부서', 
+    description: '프시케의 교육을 담당하는 부서. Bender-Gestalt Test, 일명 BGT를 통해 프시케를 교육시킨다.', 
+    color: '#22C55E',
+    subContent: [
+      { id: 'member-1', title: '라포', description: '소속 요원' },
+      { id: 'member-2', title: '비제트', description: '소속 요원' },
+      { id: 'member-3', title: '미노', description: '소속 요원' },
+      { id: 'member-4', title: '베이머', description: '소속 요원' }
+    ]
+  },
+  { 
+    id: 'dep-thematic', 
+    title: '주제통각 정보부', 
+    description: '정신 공간 인지 재해 집행부 내부의 정보를 정리하는 부서. 커피를 달고 산다.', 
+    color: '#C6A34F',
+    subContent: [
+      { id: 'member-1', title: '슈와므', description: '소속 요원' },
+      { id: 'member-2', title: '하레노이', description: '소속 요원' },
+      { id: 'member-3', title: '쟌', description: '소속 요원' },
+      { id: 'member-4', title: '이노', description: '소속 요원' }
+    ]
+  },
+  { 
+    id: 'dep-rorschach', 
+    title: '로르샤흐 부서', 
+    description: '정신 공간 인지 재해 집행부 내부의 상담을 담당하는 부서이자 침잠으로 개방된 자아심도를 담당한다. 자아심도 내부의 현상체와 상호작용 하여 드림 코어로 접근한다.', 
+    color: '#FEF08A',
+    subContent: [
+      { id: 'member-1', title: '티란', description: '소속 요원' },
+      { id: 'member-2', title: '데시마', description: '소속 요원' },
+      { id: 'member-3', title: '르셰', description: '소속 요원' },
+      { id: 'member-4', title: '아즈와', description: '소속 요원' }
+    ]
+  },
+  { 
+    id: 'dep-htp', 
+    title: 'H.T.P 부서', 
+    description: '예술가들로 이루어진 부서. 자아심도 내부의 배경을 분석하여 어느 감정들이 섞여 만들어진 자아심도인지를 추론해 드림 코어로 한결 수월하게 접근한다.', 
+    color: '#A855F7',
+    subContent: [
+      { id: 'member-1', title: '호넷', description: '소속 요원' },
+      { id: 'member-2', title: '스카라무슈', description: '소속 요원' },
+      { id: 'member-3', title: '트리비아', description: '소속 요원' }
+    ]
+  },
+  { 
+    id: 'dep-wais-wisc', 
+    title: 'WAIS, WISC 부서', 
+    description: '보통 \'웩슬러 부서\' 또는 \'쌍둥이 부서\'라고 불린다. 본래 떨어져있던 두 부서가 통합된 것으로, 초자아 또는 이드를 담당한다.', 
+    color: 'mint-black',
+    subContent: [
+      { id: 'member-1', title: '이혜인', description: '소속 요원' },
+      { id: 'member-2', title: '이다인', description: '소속 요원' },
+      { id: 'member-3', title: '베니', description: '소속 요원' },
+      { id: 'member-4', title: '바이스', description: '소속 요원' }
+    ]
+  },
+  { 
+    id: 'dep-superego', 
+    title: '초자아 징계부', 
+    description: '정신 공간 인지 재해 집행부 내부의 질서를 바로잡는 부서. 자아심도를 받아들여 장신구가 있는 자들로 구성된다.', 
+    color: '#991B1B',
+    subContent: [
+      { id: 'member-1', title: '마우그리스', description: '소속 요원' },
+      { id: 'member-2', title: '캐러독', description: '소속 요원' },
+      { id: 'member-3', title: '로베이라', description: '소속 요원' },
+      { id: 'member-4', title: '막야', description: '소속 요원' }
+    ]
+  },
+  { 
+    id: 'dep-sigmund', 
+    title: '지그문트 부서', 
+    description: '새로 창설된 부서. 포괄적인 업무를 담당받는다.', 
+    color: '#FFFFFF',
+    subContent: [
+      { id: 'member-1', title: '태아', description: '소속 요원' },
+      { id: 'member-2', title: '마거릿', description: '소속 요원' },
+      { id: 'member-3', title: '독타', description: '소속 요원' }
+    ]
+  }
 ];
 
 export const EMOTIONS: LoreEntry[] = [
