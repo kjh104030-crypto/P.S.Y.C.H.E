@@ -95,9 +95,54 @@ export const PSYCHE_DEPTS: LoreEntry[] = [
     description: '자아 해리성 정체감 중첩도를 담당하는 부서. 가스라이터와 샤덴프로이데의 검거를 담당하기도 한다.', 
     color: '#9CA3AF',
     subContent: [
-      { id: 'member-1', title: '에이달라나', description: '소속 요원' },
-      { id: 'member-2', title: '에이프릴', description: '소속 요원' },
-      { id: 'member-3', title: '밀리건', description: '소속 요원' },
+      { 
+        id: 'member-1', 
+        title: '에이달라나', 
+        description: '소속 요원',
+        profile: {
+          gender: '女',
+          department: '인격 소실 관찰부',
+          weapon: '너클, 전기충격기',
+          personalityKeywords: ['능글맞은', '여유로운', '불안정한'],
+          features: [
+            '에이프릴을 자주 괴롭힌다',
+            '경미한 우울증을 보인다'
+          ]
+        }
+      },
+      { 
+        id: 'member-2', 
+        title: '에이프릴', 
+        description: '소속 요원',
+        profile: {
+          gender: '女',
+          department: '인격 소실 관찰부',
+          weapon: '톤파',
+          personalityKeywords: ['츤데례', '내향적인', '공감하는'],
+          features: [
+            '인격 소실 관찰부 막내',
+            '머리를 기르고 있다',
+            '여러모로 과거에 머무는 경향이 강하다',
+            '날붙이를 싫어한다'
+          ]
+        }
+      },
+      { 
+        id: 'member-3', 
+        title: '밀리건', 
+        description: '소속 요원',
+        profile: {
+          gender: '男',
+          department: '인격 소실 관찰부',
+          weapon: '진압방패',
+          personalityKeywords: ['느긋한', '귀찮음이 강한', '어른의 여유'],
+          features: [
+            '중년. 인격 소실 관찰부 최연장자',
+            '담배를 물지 않았을 때를 찾기 힘든 애연가',
+            '과거의 일인지 양 팔뚝에 잔상처가 있다'
+          ]
+        }
+      },
       { 
         id: 'p-seonsaeng', 
         title: "'선생'", 
@@ -201,11 +246,87 @@ export const PSYCHE_DEPTS: LoreEntry[] = [
 ];
 
 export const EMOTIONS: LoreEntry[] = [
-  { id: 'guilt', title: '죄책감', description: '좁고 긴 복도', example: '복도는 지나치게 좁았어. 숨을 들이쉴 때마다 벽이 조금씩 가까워지는 기분이 들었지.', color: 'rgba(128, 128, 128, 0.05)' },
-  { id: 'anger', title: '분노', description: '화염', example: '불길은 무언가를 태우기 위해 존재하는 게 아니었어. 그저 멈추지 못한 채 타오르고 있었지.', color: 'rgba(255, 0, 0, 0.05)' },
-  { id: 'loss', title: '상실', description: '새하얀 방안, 검은 소파 두 개', example: '새하얀 방 안에는 서로를 마주보는 소파 두 개만 있었어. 하지만 그 어디에도 사람은 없었지.', color: 'noise' },
-  { id: 'obsession', title: '집착', description: '무한 반복 복도', example: '몇 번을 걸어도 같은 문, 같은 조명, 같은 발소리였어.', color: 'rgba(255, 80, 80, 0.05)' },
-  { id: 'fear', title: '공포', description: '어둠', example: '아무것도 보이지 않았어. 그런데 분명 어딘가에서 숨소리가 들려왔지. 문제는 방향조차 알 수 없다는 거야.', color: 'rgba(147, 51, 234, 0.05)' },
+  { 
+    id: 'guilt', 
+    title: '죄책감', 
+    description: '좁고 긴 복도', 
+    example: '복도는 지나치게 좁았어. 숨을 들이쉴 때마다 벽이 조금씩 가까워지는 기분이 들었지.', 
+    color: 'rgba(128, 128, 128, 0.4)',
+    profile: {
+      features: [
+        '압박감과 정체감을 가진다',
+        '쉽게 떠날 수 있지만 떠나선 안 될 것 같은 느낌이 수시로 든다',
+        '죄책감의 공간은 과거의 흔적이나 사용감이 남아있다',
+        '소리, 발자국, 숨소리 등이 비정상적으로 크게 느껴진다',
+        '빛이 희미하거나 불완전하다'
+      ]
+    }
+  },
+  { 
+    id: 'anger', 
+    title: '분노', 
+    description: '화염', 
+    example: '불길은 무언가를 태우기 위해 존재하는 게 아니었어. 그저 멈추지 못한 채 타오르고 있었지.', 
+    color: 'rgba(220, 38, 38, 0.4)',
+    profile: {
+      features: [
+        '공간은 날카롭고 공격적인 구조를 가진다',
+        '붉거나 과열된 색감, 금속성 질감, 깨진 구조물 등이 나타난다',
+        '만져도 뜨겁지 않은 불길이 있다',
+        '불안정한 소리(진동, 파열음, 금속 마찰음 등)가 반복된다',
+        '억눌린 폭발 직전의 분위기를 풍긴다',
+        '무언가 부서졌거나 부서질 것 같은 긴장감이 계속해서 느껴진다'
+      ]
+    }
+  },
+  { 
+    id: 'loss', 
+    title: '상실', 
+    description: '새하얀 방안, 검은 소파 두 개', 
+    example: '새하얀 방 안에는 서로를 마주보는 소파 두 개만 있었어. 하지만 그 어디에도 사람은 없었지.', 
+    color: 'noise',
+    profile: {
+      features: [
+        '공간은 비어있거나 지나치게 넓게 느껴진다',
+        '누군가 있었던 흔적만 남아있다',
+        '소리는 멀고 희미하며 공허하게 퍼진다',
+        '이미 끝난 장소 같은 분위기를 가진다',
+        '부재감이 남아있다'
+      ]
+    }
+  },
+  { 
+    id: 'obsession', 
+    title: '집착', 
+    description: '무한 반복 복도', 
+    example: '몇 번을 걸어도 같은 문, 같은 조명, 같은 발소리였어.', 
+    color: 'rgba(239, 68, 68, 0.2)',
+    profile: {
+      features: [
+        '동일한 구조나 사물이 반복된다',
+        '특정 대상이나 장소가 과하게 강조된다',
+        '반복되는 듯한 느낌이 든다',
+        '정돈되어 있으나 비정상적으로 강박적이다',
+        '시선이 붙잡히는 특정 요소가 있다'
+      ]
+    }
+  },
+  { 
+    id: 'fear', 
+    title: '공포', 
+    description: '어둠', 
+    example: '아무것도 보이지 않았어. 그런데 분명 어딘가에서 숨소리가 들려왔지. 문제는 방향조차 알 수 없다는 거야.', 
+    color: 'rgba(147, 51, 234, 0.2)',
+    profile: {
+      features: [
+        '시야가 제한되거나 구조가 불분명하다',
+        '인기척과 침묵이 반복된다',
+        '무언가 가까이 있는 듯하지만 명확히 보이지 않는다',
+        '안전지대가 존재하지 않는 느낌이 든다',
+        '어둠 속 방향이 특정되지 않는 곳에서 소리가 들려온다'
+      ]
+    }
+  },
   { id: 'love', title: '사랑', description: '체온이 남은 공간', example: '누군가는 이미 떠났는데도 방 안은 아직 따뜻했어.', color: 'rgba(244, 114, 182, 0.05)' },
   { id: 'sadness', title: '슬픔', description: '비와 회색빛 거리', example: '회색 도시 위로 비가 내리고 있었어. 누구도 하늘을 올려다보진 않았지.', color: 'rgba(59, 130, 246, 0.05)' },
   { id: 'sorrow', title: '비애', description: '어두운 바다', example: '바다는 너무 검어서 깊이조차 보이지 않았어.', color: 'rgba(30, 58, 138, 0.05)' },
@@ -214,5 +335,12 @@ export const EMOTIONS: LoreEntry[] = [
   { id: 'hatred', title: '증오', description: '금이 간 거울이 가득한 공간', example: '거울 속 얼굴은 전부 조금씩 망가져 있었지.', color: 'rgba(127, 29, 29, 0.05)' },
   { id: 'hope', title: '희망', description: '아주 멀리 있는 빛', example: '닿을 수 있을지조차 모르겠지만, 사람은 결국 저 빛을 향해 걷게 되더라.', color: 'rgba(234, 179, 8, 0.05)' },
   { id: 'greed', title: '탐욕', description: '끝이 보이지 않는 구덩이', example: '아래를 내려다봤지만 바닥은 보이지 않았어.', color: 'rgba(198, 163, 79, 0.08)' },
-  { id: 'nostalgia', title: '향수', description: '체취가 남은 공간', example: '오래전에 잊었다고 생각했던 냄새가 아직 공간에 남아 있었지.', color: 'rgba(254, 252, 232, 0.15)' }
+  { id: 'nostalgia', title: '향수', description: '체취가 남은 공간', example: '오래전에 잊었다고 생각했던 냄새가 아직 공간에 남아 있었지.', color: 'rgba(254, 252, 232, 0.15)' },
+  { id: 'sloth', title: '나태', description: '멈춰버린 시계탑', example: '시간은 멈춘 게 아니었어. 그저 흐르길 거부하고 있을 뿐이었지.', color: 'rgba(234, 179, 8, 0.08)' },
+  { id: 'ennui', title: '권태', description: '색이 바랜 정원', example: '아름다웠을 꽃들은 이제 아무런 감흥도 주지 못한 채 시들어 있었지.', color: 'rgba(161, 161, 170, 0.08)' },
+  { id: 'jealousy', title: '질투', description: '어긋난 조각들', example: '그것이 내 것이어야만 했다는 생각이 머릿속을 독처럼 파고들었어.', color: 'rgba(147, 51, 234, 0.08)' },
+  { id: 'anxiety', title: '불안', description: '바닥이 보이지 않는 계단', example: '다음 발을 내디딜 때 그곳에 바닥이 있을지 확신할 수 없었어.', color: 'rgba(139, 126, 126, 0.1)' },
+  { id: 'attachment', title: '애착', description: '엉켜버린 붉은 실', example: '끊어내려 할수록 실은 살을 파고들며 더욱 단단히 묶여왔지.', color: 'rgba(236, 72, 153, 0.08)' },
+  { id: 'self-loathing', title: '자기혐오', description: '깨진 거울 밑바닥', example: '거울 속에 비친 것은 도저히 사랑할 수 없는 무언가의 파편이었어.', color: 'rgba(0, 0, 0, 0.15)' },
+  { id: 'craving', title: '갈망', description: '마를 줄 모르는 샘물', example: '마실수록 목마름은 더해졌고, 갈증은 영혼까지 태워버릴 듯했지.', color: 'rgba(249, 115, 22, 0.08)' }
 ];

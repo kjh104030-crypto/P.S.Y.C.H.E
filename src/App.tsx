@@ -137,13 +137,21 @@ export default function App() {
 function MainDashboard({ currentView, setCurrentView, isDark }: { currentView: ViewMode, setCurrentView: (v: ViewMode) => void, isDark: boolean }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  const [selectedEmotionId, setSelectedEmotionId] = useState<string | null>(null);
+
+  const selectedEmotion = EMOTIONS.find(e => e.id === selectedEmotionId);
+
   const renderContent = () => {
     switch (currentView) {
       case 'main': return <HomeView setView={setCurrentView} />;
       case 'factions': return <ListView title="FACTIONS" subtitle="세력 정보" entries={FACTIONS} onEntryClick={(id) => { if(id === 'psyche') setCurrentView('psyche-dept'); }} />;
       case 'terms': return <ListView title="TERMINOLOGY" subtitle="용어 사전" entries={TERMS} />;
       case 'ego': return <ListView title="EGO DEPTH" subtitle="자아심도 분석" entries={EGO_DEPTH} />;
-      case 'emotions': return <ListView title="EMOTIONAL FORMS" subtitle="감정 형상 자료" entries={EMOTIONS} />;
+      case 'emotions': 
+        if (selectedEmotionId && selectedEmotion) {
+          return <EmotionDetailView emotion={selectedEmotion} onBack={() => setSelectedEmotionId(null)} />;
+        }
+        return <ListView title="EMOTIONAL FORMS" subtitle="감정 형상 자료" entries={EMOTIONS} onEntryClick={(id) => setSelectedEmotionId(id)} isEmotions />;
       case 'psyche-dept': return <PsycheDeptView />;
     }
   };
@@ -353,8 +361,7 @@ function HomeCard({ title, subtitle, desc, onClick }: { title: string, subtitle:
   );
 }
 
-function ListView({ title, subtitle, entries, onEntryClick }: { title: string, subtitle: string, entries: LoreEntry[], onEntryClick?: (id: string) => void }) {
-  const isEmotions = title === 'EMOTIONAL FORMS';
+function ListView({ title, subtitle, entries, onEntryClick, isEmotions }: { title: string, subtitle: string, entries: LoreEntry[], onEntryClick?: (id: string) => void, isEmotions?: boolean }) {
   const isEgoDepth = title === 'EGO DEPTH';
   
   return (
@@ -377,55 +384,38 @@ function ListView({ title, subtitle, entries, onEntryClick }: { title: string, s
 
       {isEgoDepth && <EgoDepthVisual />}
 
-      <div className="space-y-8 md:space-y-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {entries.map((entry) => {
-          const isClickable = onEntryClick && entry.id === 'psyche';
+          const isClickable = onEntryClick;
           return (
-          <div 
+          <button 
             key={entry.id} 
             onClick={() => isClickable && onEntryClick(entry.id)}
-            className={`relative group overflow-hidden border border-black/5 bg-white transition-all ${isClickable ? 'cursor-pointer hover:border-gold-500 hover:shadow-lg' : ''}`}
+            className={`relative group overflow-hidden border border-black/5 bg-white transition-all text-left ${isClickable ? 'cursor-pointer hover:border-gold-500 hover:shadow-lg' : ''}`}
           >
             {/* Background Layer */}
             {entry.color && (
               entry.color === 'noise' ? (
                 <div className="absolute inset-x-0 inset-y-0 noise opacity-[0.07] z-0" />
               ) : (
-                <div className="absolute inset-x-0 inset-y-0 z-0" style={{ backgroundColor: entry.color }} />
+                <div className="absolute inset-x-0 inset-y-0 z-0 opacity-10 group-hover:opacity-20 transition-opacity" style={{ backgroundColor: entry.color }} />
               )
             )}
             
-            <div className="flex gap-6 md:gap-10 p-6 md:p-10 relative z-10">
-              <div className="w-1 bg-black shrink-0 relative">
+            <div className="flex gap-4 md:gap-6 p-6 md:p-8 relative z-10 transition-transform group-hover:translate-x-1">
+              <div className="w-1 bg-black group-hover:bg-gold-500 shrink-0 relative transition-colors">
                 <div className="absolute top-0 left-[-4px] w-3 h-3 bg-gold-500 rounded-full" />
               </div>
               <div className="flex-1">
-                <h3 className="text-3xl font-black text-black mb-4 uppercase italic font-display underline decoration-1 underline-offset-4">{entry.title}</h3>
-                <p className="text-lg text-black font-light mb-6 leading-relaxed max-w-4xl whitespace-pre-line">{entry.description}</p>
+                <h3 className="text-2xl font-black text-black mb-2 uppercase italic font-display underline decoration-1 underline-offset-4 tracking-tighter">{entry.title}</h3>
+                <p className="text-sm text-black/70 font-light mb-4 leading-relaxed max-w-4xl line-clamp-2">{entry.description}</p>
                 
-                {entry.example && (
-                  <div className="relative p-6 bg-white/40 border-r-4 border-gold-500 backdrop-blur-[2px]">
-                    <p className="text-sm italic font-medium text-slate-600 leading-relaxed italic font-display">
-                      "{entry.example}"
-                    </p>
-                    <div className="absolute top-0 right-0 p-1 text-[8px] font-mono text-slate-300 uppercase">Observer_Note</div>
-                  </div>
-                )}
-
-                {entry.subContent && (
-                  <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-px bg-black border border-black">
-                    {entry.subContent.map(sub => (
-                      <div key={sub.id} className="bg-white p-6 hover:bg-gold-50 transition-colors">
-                        <div className="text-[10px] font-black text-gold-600 mb-2 tracking-widest uppercase font-mono">[{sub.id}]</div>
-                        <div className="text-lg font-black text-black mb-1">{sub.title}</div>
-                        <div className="text-sm text-slate-500 leading-normal font-medium">{sub.description}</div>
-                      </div>
-                    ))}
-                  </div>
-                )}
+                <div className="mt-4 flex justify-end opacity-0 group-hover:opacity-100 transition-opacity">
+                   <ArrowRight size={16} className="text-gold-600" />
+                </div>
               </div>
             </div>
-          </div>
+          </button>
         )})}
       </div>
       
@@ -434,6 +424,101 @@ function ListView({ title, subtitle, entries, onEntryClick }: { title: string, s
            <p className="text-[10px] font-mono tracking-widest">END OF EMOTIONAL FORM DATABASE_04</p>
         </div>
       )}
+    </div>
+  );
+}
+
+function EmotionDetailView({ emotion, onBack }: { emotion: LoreEntry, onBack: () => void }) {
+  const bgColor = emotion.color === 'noise' ? 'transparent' : emotion.color;
+
+  return (
+    <div className="relative min-h-[600px] transition-all duration-700">
+      <div 
+        className="absolute inset-0 z-0 overflow-hidden pointer-events-none"
+        style={{ 
+          background: emotion.color === 'noise' ? 'none' : `radial-gradient(circle at center, ${bgColor}, transparent)` 
+        }}
+      >
+        {emotion.color === 'noise' && <div className="absolute inset-0 noise opacity-10" />}
+      </div>
+
+      <div className="relative z-10 space-y-12 pb-24">
+        <div className="flex flex-col md:flex-row md:items-end justify-between border-b-2 border-black pb-4 gap-4">
+          <div>
+            <button 
+              onClick={onBack}
+              className="text-gold-600 font-black tracking-[0.3em] text-xs mb-1 uppercase font-mono hover:text-black transition-colors flex items-center gap-2"
+            >
+              <ArrowRight className="rotate-180" size={14} /> BACK_TO_EMOTIONS
+            </button>
+            <h2 className="text-5xl font-black text-black tracking-tight uppercase italic">{emotion.title}</h2>
+          </div>
+          <div className="text-[10px] font-mono opacity-40 uppercase tracking-widest text-right">
+            Emotion_ID: {emotion.id.toUpperCase()}<br/>
+            Observation_Status: [DOCUMENTED]
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <div className="lg:col-span-2 space-y-12">
+            <div>
+              <h3 className="text-xs font-mono text-gold-500 tracking-[0.4em] uppercase mb-4">OBSERVED_FORM</h3>
+              <p className="text-4xl font-black tracking-tighter leading-tight italic border-l-4 border-black pl-6">
+                {emotion.description}
+              </p>
+            </div>
+
+            {emotion.example && (
+              <div className="relative p-10 bg-black text-white group shadow-2xl">
+                <div className="absolute top-0 right-0 p-2 text-[8px] font-mono text-gold-500 uppercase tracking-widest">Observer_Tape_LOG_01</div>
+                <p className="text-2xl font-light italic font-display leading-relaxed">
+                  "{emotion.example}"
+                </p>
+              </div>
+            )}
+
+            {emotion.profile?.features && (
+              <div className="space-y-6">
+                <h3 className="text-xs font-mono text-gold-500 tracking-[0.4em] uppercase">CHARACTERISTICS</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-black border border-black shadow-lg">
+                  {emotion.profile.features.map((f, i) => (
+                    <div key={i} className="bg-white p-6 flex items-start gap-4 hover:bg-gold-50 transition-colors">
+                      <span className="text-[10px] font-mono text-gold-600 font-bold mt-1">[{String(i+1).padStart(2, '0')}]</span>
+                      <span className="text-sm font-bold tracking-tight">{f}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="space-y-8">
+             <div className="p-8 border-2 border-black bg-white shadow-xl relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-16 h-16 bg-gold-500/10 -mr-8 -mt-8 rotate-45" />
+                <h4 className="text-xs font-black tracking-[0.2em] mb-6 uppercase border-b border-black/10 pb-2">PSYCHE_ANALYTICS</h4>
+                <div className="space-y-4">
+                   <StatRow label="Invasive_Potency" value="78%" />
+                   <StatRow label="Reality_Distortion" value="HIGH" />
+                   <StatRow label="Closing_Difficulty" value="VARIES" />
+                </div>
+             </div>
+
+             <div className="text-[9px] font-mono opacity-50 space-y-1">
+                <p>// DATA_INTEGRITY_VERIFIED_BY_GESTAULT</p>
+                <p>// MONITORING_ACTIVE_VOID_CORE</p>
+             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function StatRow({ label, value }: { label: string, value: string }) {
+  return (
+    <div className="flex justify-between items-end border-b border-black/5 pb-2">
+      <span className="text-[10px] font-mono opacity-40 uppercase tracking-widest">{label}</span>
+      <span className="text-sm font-black tracking-tighter text-gold-600">{value}</span>
     </div>
   );
 }
@@ -594,6 +679,7 @@ function PsycheDeptView() {
             <div>
               <div className="text-gold-600 font-black tracking-[0.3em] text-xs mb-1 uppercase font-mono">P.S.Y.C.H.E DEPARTMENTS</div>
               <h2 className="text-5xl font-black text-white tracking-tight">집행부 편제</h2>
+              <p className="text-[10px] text-white/50 mt-2 font-light">* 화기를 잘 사용하지 않는 이유는 프시케의 업무는 자아심도의 처리이지 전투가 아니기 때문입니다</p>
             </div>
             <div className="text-[10px] font-mono opacity-40 uppercase tracking-widest text-right">
               Dept_Auth: [CLASSIFIED]<br/>
