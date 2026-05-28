@@ -167,10 +167,69 @@ export const PSYCHE_DEPTS: LoreEntry[] = [
     description: '프시케의 교육을 담당하는 부서. Bender-Gestalt Test, 일명 BGT를 통해 프시케를 교육시킨다.', 
     color: '#22C55E',
     subContent: [
-      { id: 'member-1', title: '라포', description: '소속 요원' },
-      { id: 'member-2', title: '비제트', description: '소속 요원' },
-      { id: 'member-3', title: '미노', description: '소속 요원' },
-      { id: 'member-4', title: '베이머', description: '소속 요원' }
+      { 
+        id: 'member-1', 
+        title: '라비린스', 
+        description: '소속 요원',
+        profile: {
+          gender: '女',
+          department: '벤더 게슈탈트 부서',
+          weapon: '장검, 소드브레이커',
+          personalityKeywords: ['활발한', '밝은', '특이한'],
+          features: [
+            '전 초자아 징계부 소속',
+            '좋아하는 것을 말할 때에는 거의 숨도 쉬지 않고 말함',
+            '검 수집을 좋아함',
+            '자아심도를 받아들여 은 목걸이를 장신구로 차고 있음'
+          ]
+        }
+      },
+      { 
+        id: 'member-2', 
+        title: '비제트', 
+        description: '소속 요원',
+        profile: {
+          gender: '女',
+          department: '벤더 게슈탈트 부서',
+          weapon: '단검',
+          personalityKeywords: ['피곤한', '늘어지는', '권태로운'],
+          features: [
+            '가끔 커피 원두를 쌩으로 씹어먹음',
+            '평소 웃는 법이 없다'
+          ]
+        }
+      },
+      { 
+        id: 'member-3', 
+        title: '미노', 
+        description: '소속 요원',
+        profile: {
+          gender: '女',
+          department: '벤더 게슈탈트 부서',
+          weapon: '톤파',
+          personalityKeywords: ['자신이든 타인이든 그 누구도 그 무엇도 사랑할 수 없는(NT)', '욕구는 깊으나 사랑은 얕다.'],
+          features: [
+            '남을 잘 속임',
+            '몸을 가만히 있는 것을 하지 못함'
+          ]
+        }
+      },
+      { 
+        id: 'member-4', 
+        title: '베이머', 
+        description: '소속 요원',
+        profile: {
+          gender: '女',
+          department: '벤더 게슈탈트 부서',
+          weapon: '곤봉',
+          personalityKeywords: ['차분한', '이성적인', '효율중시'],
+          features: [
+            '별을 바라보는 것을 좋아함',
+            '비유와 은유를 자주 사용함',
+            '범죄자에 대한 무조건적인 혐오'
+          ]
+        }
+      }
     ]
   },
   { 
