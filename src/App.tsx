@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ChevronRight, Database, Users, Book, Globe, Shield, Menu, X, ArrowRight } from 'lucide-react';
 import { FACTIONS, TERMS, EGO_DEPTH, EMOTIONS, LoreEntry, PSYCHE_DEPTS } from './constants';
 
-type ViewMode = 'main' | 'factions' | 'psyche-dept' | 'terms' | 'ego' | 'emotions';
+type ViewMode = 'main' | 'factions' | 'psyche-dept' | 'schadenfreude-dept' | 'terms' | 'ego' | 'emotions';
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -122,12 +122,31 @@ export default function App() {
     );
   }
 
-  const isDark = currentView === 'psyche-dept';
+  const isDark = currentView === 'psyche-dept' || currentView === 'schadenfreude-dept';
+  const isSchadenfreude = currentView === 'schadenfreude-dept';
 
   return (
-    <div className={`min-h-screen ${isDark ? 'bg-black text-white selection:bg-white/30' : 'bg-white text-black selection:bg-gold-200'} font-sans relative p-4 md:p-8 transition-colors duration-500`}>
-      <div className={`fixed inset-0 ${isDark ? 'bg-grid-dark opacity-10' : 'bg-grid opacity-[0.03]'} pointer-events-none transition-opacity duration-500`} />
-      <div className={`relative border-2 md:border-4 ${isDark ? 'border-white/20 bg-black text-white' : 'border-black bg-white text-black'} min-h-[calc(100vh-2rem)] md:min-h-[calc(100vh-4rem)] flex flex-col overflow-hidden transition-colors duration-500`}>
+    <div className={`min-h-screen ${
+      isSchadenfreude 
+        ? 'bg-black text-red-500 selection:bg-red-500/30' 
+        : isDark 
+          ? 'bg-black text-white selection:bg-white/30' 
+          : 'bg-white text-black selection:bg-gold-200'
+    } font-sans relative p-4 md:p-8 transition-colors duration-500`}>
+      <div className={`fixed inset-0 ${
+        isSchadenfreude 
+          ? 'bg-grid-dark opacity-20' 
+          : isDark 
+            ? 'bg-grid-dark opacity-10' 
+            : 'bg-grid opacity-[0.03]'
+      } pointer-events-none transition-opacity duration-500`} />
+      <div className={`relative border-2 md:border-4 ${
+        isSchadenfreude 
+          ? 'border-red-900/60 bg-black text-white' 
+          : isDark 
+            ? 'border-white/20 bg-black text-white' 
+            : 'border-black bg-white text-black'
+      } min-h-[calc(100vh-2rem)] md:min-h-[calc(100vh-4rem)] flex flex-col overflow-hidden transition-colors duration-500`}>
         <MainDashboard currentView={currentView} setCurrentView={setCurrentView} isDark={isDark} />
       </div>
     </div>
@@ -144,7 +163,10 @@ function MainDashboard({ currentView, setCurrentView, isDark }: { currentView: V
   const renderContent = () => {
     switch (currentView) {
       case 'main': return <HomeView setView={setCurrentView} />;
-      case 'factions': return <ListView title="FACTIONS" subtitle="세력 정보" entries={FACTIONS} onEntryClick={(id) => { if(id === 'psyche') setCurrentView('psyche-dept'); }} />;
+      case 'factions': return <ListView title="FACTIONS" subtitle="세력 정보" entries={FACTIONS} onEntryClick={(id) => { 
+        if(id === 'psyche') setCurrentView('psyche-dept'); 
+        if(id === 'schadenfreude') setCurrentView('schadenfreude-dept');
+      }} />;
       case 'terms': return <ListView title="TERMINOLOGY" subtitle="용어 사전" entries={TERMS} />;
       case 'ego': return <ListView title="EGO DEPTH" subtitle="자아심도 분석" entries={EGO_DEPTH} />;
       case 'emotions': 
@@ -153,6 +175,7 @@ function MainDashboard({ currentView, setCurrentView, isDark }: { currentView: V
         }
         return <ListView title="EMOTIONAL FORMS" subtitle="감정 형상 자료" entries={EMOTIONS} onEntryClick={(id) => setSelectedEmotionId(id)} isEmotions />;
       case 'psyche-dept': return <PsycheDeptView />;
+      case 'schadenfreude-dept': return <SchadenfreudeDeptView onBack={() => setCurrentView('factions')} />;
     }
   };
 
@@ -172,7 +195,7 @@ function MainDashboard({ currentView, setCurrentView, isDark }: { currentView: V
         
         <div className="hidden md:flex items-center gap-8">
           <HeaderTab active={currentView === 'main'} onClick={() => setCurrentView('main')} isDark={isDark}>MAIN OPS</HeaderTab>
-          <HeaderTab active={currentView === 'factions' || currentView === 'psyche-dept'} onClick={() => setCurrentView('factions')} isDark={isDark}>FACTIONS</HeaderTab>
+          <HeaderTab active={currentView === 'factions' || currentView === 'psyche-dept' || currentView === 'schadenfreude-dept'} onClick={() => setCurrentView('factions')} isDark={isDark}>FACTIONS</HeaderTab>
           <HeaderTab active={currentView === 'terms'} onClick={() => setCurrentView('terms')} isDark={isDark}>TERMINOLOGY</HeaderTab>
           <HeaderTab active={currentView === 'ego'} onClick={() => setCurrentView('ego')} isDark={isDark}>EGO DEPTH</HeaderTab>
         </div>
@@ -197,7 +220,7 @@ function MainDashboard({ currentView, setCurrentView, isDark }: { currentView: V
           <div className="mb-12">
             <p className="text-[10px] uppercase tracking-widest text-gray-500 mb-6 font-mono">Navigation Module</p>
             <nav className="space-y-4">
-              <SidebarItem active={currentView === 'factions' || currentView === 'psyche-dept'} onClick={() => { setCurrentView('factions'); setMobileMenuOpen(false); }} label="세력" en="Factions" isDark={isDark} />
+              <SidebarItem active={currentView === 'factions' || currentView === 'psyche-dept' || currentView === 'schadenfreude-dept'} onClick={() => { setCurrentView('factions'); setMobileMenuOpen(false); }} label="세력" en="Factions" isDark={isDark} />
               <SidebarItem active={currentView === 'terms'} onClick={() => { setCurrentView('terms'); setMobileMenuOpen(false); }} label="용어" en="Terms" isDark={isDark} />
               <SidebarItem active={currentView === 'ego'} onClick={() => { setCurrentView('ego'); setMobileMenuOpen(false); }} label="자아심도" en="Ego Depth" isDark={isDark} />
               <SidebarItem active={currentView === 'emotions'} onClick={() => { setCurrentView('emotions'); setMobileMenuOpen(false); }} label="감정 형상" en="Emotions" isDark={isDark} />
@@ -740,6 +763,49 @@ function CharacterProfileView({ entry, onBack }: { entry: LoreEntry, onBack: () 
 
   return (
     <div className="pb-12 text-black bg-[#fdfcf8] p-6 md:p-12 border-2 border-black/10 shadow-2xl relative overflow-hidden mx-auto max-w-4xl">
+        {/* Blood splatter decoration for Sprüche */}
+        {entry.id === 'member-spruch' && (
+          <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-20">
+            {/* Splatter blur background */}
+            <div className="absolute top-[15%] right-[15%] w-[150px] h-[150px] bg-red-800/15 rounded-full blur-[25px] mix-blend-multiply" />
+            <div className="absolute bottom-[20%] left-[5%] w-[180px] h-[180px] bg-red-900/10 rounded-full blur-[30px] mix-blend-multiply" />
+            
+            {/* Blood stain 1 */}
+            <svg className="absolute top-24 right-12 w-48 h-48 text-red-900/50 opacity-80 mix-blend-multiply" viewBox="0 0 100 100" fill="currentColor">
+              <path d="M 50,50 C 62,32 45,18 72,12 C 88,8 82,28 92,42 C 102,58 88,72 68,82 C 48,92 28,78 22,62 C 18,48 38,52 42,38 C 46,22 42,68 50,50 Z" />
+              <circle cx="28" cy="18" r="4" />
+              <circle cx="82" cy="20" r="3" />
+              <circle cx="90" cy="68" r="5" />
+              <circle cx="38" cy="78" r="2.5" />
+              <circle cx="15" cy="42" r="4" />
+            </svg>
+
+            {/* Blood stain 1.5 - drip */}
+            <svg className="absolute top-[210px] right-[60px] w-8 h-32 text-red-900/55 opacity-75 mix-blend-multiply animate-pulse" viewBox="0 0 20 100" fill="currentColor" style={{ animationDuration: '6s' }}>
+              <path d="M 10,0 C 12,20 12,40 14,60 C 15,70 17,80 17,85 C 17,92 13,98 10,98 C 7,98 3,92 3,85 C 3,80 5,70 6,60 C 8,40 8,20 10,0 Z" />
+            </svg>
+
+            {/* Blood stain 2 */}
+            <svg className="absolute bottom-16 left-8 w-64 h-64 text-red-900/45 opacity-70 mix-blend-multiply" viewBox="0 0 120 120" fill="currentColor">
+              <path d="M 60,60 C 82,38 52,8 32,18 C 12,28 8,58 28,78 C 48,98 82,112 102,88 C 122,62 102,42 82,32 C 62,22 42,78 60,60 Z" />
+              <circle cx="48" cy="12" r="5" />
+              <circle cx="98" cy="48" r="4" />
+              <circle cx="112" cy="98" r="3.5" />
+              <circle cx="18" cy="88" r="3" />
+              <circle cx="5" cy="55" r="4.5" />
+            </svg>
+            
+            {/* Warning stamp and bloody fingerprint */}
+            <div className="absolute top-[40%] right-10 text-red-900/60 font-mono text-[10px] border-2 border-dashed border-red-950/40 px-3 py-1.5 rotate-12 mix-blend-multiply uppercase tracking-widest select-none">
+               [WARNING: BIO_CONTAINMENT_BREACH]
+            </div>
+            
+            {/* Red blood text marking */}
+            <div className="absolute top-[16%] left-[28%] text-red-800/70 font-mono text-xl font-black rotate-[-8deg] uppercase tracking-widest pointer-events-none select-none">
+              SAMPLE_INFECTED
+            </div>
+          </div>
+        )}
         {/* Document Header */}
         <div className="flex flex-col md:flex-row justify-between items-start border-b-4 border-black pb-8 gap-8">
             <div>
@@ -797,6 +863,43 @@ function CharacterProfileView({ entry, onBack }: { entry: LoreEntry, onBack: () 
                      ))}
                 </ul>
             </div>
+
+            {/* 관계도 (PERSONNEL RELATIONSHIPS) */}
+            {profile.relationships && profile.relationships.length > 0 && (
+                <div>
+                    <h4 className="text-xs font-black border-l-4 border-black pl-3 mb-4 bg-black/5 py-1 uppercase tracking-widest">요원 상호 작용 / 관계도 (RELATIONSHIP_MATRIX)</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {profile.relationships.map((rel, index) => (
+                            <div key={index} className="p-4 border-2 border-black bg-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] flex flex-col gap-2 relative overflow-hidden">
+                                <div className="flex justify-between items-start border-b border-black pb-1.5 gap-2">
+                                    <span className="font-black text-sm tracking-tight">{rel.name}</span>
+                                    <span className="px-1.5 py-0.5 bg-black text-white text-[8px] font-mono leading-none tracking-wider uppercase font-extrabold shrink-0">
+                                        {rel.relation}
+                                    </span>
+                                </div>
+                                <p className="text-xs text-gray-700 leading-relaxed font-semibold">{rel.description}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
+
+            {/* 활동 로그 (INTERACTION LOGS) */}
+            {profile.logs && profile.logs.length > 0 && (
+                <div>
+                    <h4 className="text-xs font-black border-l-4 border-black pl-3 mb-4 bg-black/5 py-1 uppercase tracking-widest">업무 지침 / 상황 대처 및 활동 로그 (INTERACTION_LOGS)</h4>
+                    <div className="border-2 border-black bg-white p-4 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] divide-y divide-black/10">
+                        {profile.logs.map((log, index) => (
+                            <div key={index} className={`flex gap-4 items-start text-xs leading-relaxed ${index > 0 ? 'pt-3 mt-3' : ''}`}>
+                                <span className="font-mono text-[8px] px-1.5 py-0.5 bg-black/5 border border-black/20 text-black/60 shrink-0 font-bold leading-none">
+                                    RECORD_{String(index + 1).padStart(2, '0')}
+                                </span>
+                                <p className="font-semibold text-gray-900">{log}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
         </div>
 
         {/* Footer / Stamps */}
@@ -832,4 +935,89 @@ function InfoCell({ label, value }: { label: string, value: string }) {
             <span className="text-2xl font-black tracking-tighter uppercase italic">{value}</span>
         </div>
     );
+}
+
+function SchadenfreudeDeptView({ onBack }: { onBack: () => void }) {
+  const [selectedMemberId, setSelectedMemberId] = useState<string | null>(null);
+
+  const sfFaction = FACTIONS.find(f => f.id === 'schadenfreude');
+  const selectedMember = sfFaction?.subContent?.find(m => m.id === selectedMemberId);
+
+  return (
+    <AnimatePresence mode="wait">
+      {selectedMemberId && selectedMember ? (
+        <motion.div 
+          key="member-profile"
+          initial={{ opacity: 0, filter: 'blur(10px)', scale: 0.98 }}
+          animate={{ opacity: 1, filter: 'blur(0px)', scale: 1 }}
+          exit={{ opacity: 0, filter: 'blur(10px)', scale: 1.02 }}
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          className="pb-24"
+        >
+          <div className="mb-8">
+            <button 
+              onClick={() => setSelectedMemberId(null)}
+              className="text-red-500 font-black tracking-[0.3em] text-xs mb-1 uppercase font-mono hover:text-white transition-colors flex items-center gap-2"
+            >
+              <ArrowRight className="rotate-180" size={14} /> BACK_TO_{sfFaction?.title || 'SCHADENFREUDE'}
+            </button>
+          </div>
+          <CharacterProfileView entry={selectedMember} onBack={() => setSelectedMemberId(null)} />
+        </motion.div>
+      ) : (
+        <motion.div 
+          key="sf-detail"
+          initial={{ opacity: 0, filter: 'blur(10px)', scale: 0.98 }}
+          animate={{ opacity: 1, filter: 'blur(0px)', scale: 1 }}
+          exit={{ opacity: 0, filter: 'blur(10px)', scale: 1.02 }}
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          className="space-y-16 pb-24 text-white"
+        >
+          <div className="flex flex-col md:flex-row md:items-end justify-between border-b-2 border-red-900 pb-4 gap-4">
+            <div>
+              <button 
+                onClick={onBack}
+                className="text-red-500 font-black tracking-[0.3em] text-xs mb-1 uppercase font-mono hover:text-white transition-colors flex items-center gap-2"
+              >
+                <ArrowRight className="rotate-180" size={14} /> BACK_TO_FACTIONS
+              </button>
+              <h2 className="text-5xl font-black text-red-500 tracking-tight">{sfFaction?.title || '샤덴프로이데'}</h2>
+            </div>
+            <div className="text-[10px] font-mono text-red-800 opacity-60 uppercase tracking-widest text-right">
+              Faction_ID: SCHADENFREUDE<br/>
+              Access_Level: [UNAUTHORIZED_HAZARD]
+            </div>
+          </div>
+
+          <div className="max-w-4xl">
+            <p className="text-xl text-red-200/80 font-light mb-12 leading-relaxed border-l-2 border-red-600 pl-6">
+              {sfFaction?.description}
+            </p>
+
+            <div className="space-y-4">
+              <h4 className="text-xs font-mono text-red-500 tracking-[0.4em] uppercase mb-8">KNOWN_MEMBERS</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {sfFaction?.subContent?.map((member, idx) => (
+                  <motion.button 
+                    key={member.id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: idx * 0.1 }}
+                    onClick={() => setSelectedMemberId(member.id)}
+                    className="p-6 border border-red-950/40 bg-red-950/10 flex items-center justify-between group hover:bg-red-900/10 hover:border-red-800 transition-colors text-left"
+                  >
+                    <span className="text-2xl font-black text-red-500 tracking-tighter uppercase group-hover:text-red-400 transition-colors">{member.title}</span>
+                    <div className="flex items-center gap-4">
+                       {member.profile && <span className="text-[10px] font-mono text-red-500 opacity-0 group-hover:opacity-100 transition-opacity uppercase">View_Dossier</span>}
+                       <div className="w-12 h-[1px] bg-red-950/40 group-hover:bg-red-500 transition-colors" />
+                    </div>
+                  </motion.button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
 }
