@@ -56,6 +56,96 @@ export const FACTIONS: LoreEntry[] = [
             '상황 보고: 지팡이를 땅에 짚으며 자아진동을 간섭. 프시케들의 구출 작전 경로를 꼬이게 만들어 자아심도가 스스로 붕괴하도록 수면 아래에서 조종.'
           ]
         }
+      },
+      {
+        id: 'member-adaline',
+        title: '아달린',
+        description: '소속 요원',
+        profile: {
+          gender: '女',
+          department: '샤덴프로이데 (Schadenfreude)',
+          weapon: '망치',
+          personalityKeywords: ['퇴폐스러운', '피곤한', '늘어지는', '권태로운'],
+          features: [
+            '행동이 느리다',
+            '항상 몽롱한 상태를 유지한다',
+            '밧줄을 가지고 다닌다'
+          ],
+          relationships: [
+            { name: '슈프리흐', relation: '상관 / 귀찮은 음성', description: '말이 너무 많아. 가끔 자장가로는 나쁘지 않지만... 좀 조용히 해줬으면 좋겠네.' },
+            { name: '모더니스트', relation: '동료 / 수면 방해꾼', description: '너무 시끄러워서 내 낮잠을 깨우곤 해. 철퇴 소리 때문에 머리가 울린다고...' }
+          ],
+          logs: [
+            '작전 불참 사유: 잠기운이 가시지 않아 대상의 동선을 밧줄로 대충 묶어 막아두고 이탈. 결과적으로 타겟은 밧줄에 걸려 넘어지며 기절함.',
+            '비품 요청: 수면용 안대와 귀마개. 망치로 치는 것도 이젠 귀찮다. 그냥 알아서 부서지면 안 되나.'
+          ]
+        }
+      },
+      {
+        id: 'member-vandali',
+        title: '반달리',
+        description: '소속 요원',
+        profile: {
+          gender: '女',
+          department: '샤덴프로이데 (Schadenfreude)',
+          weapon: '크로우바',
+          personalityKeywords: ['불신주의', '경계심 강한', '폭력적인'],
+          features: [
+            'H.T.P 부서에 대한 맹목적 증오'
+          ],
+          relationships: [
+            { name: 'H.T.P 부서', relation: '적대 대상 / 파괴 충동', description: '위선자 놈들. 그 하얀 가운을 피로 물들여주지. 내 크로우바가 그들의 두개골보다 더 단단한 건 확실하니까.' },
+            { name: '\'제자\'', relation: '동료 / 거슬림', description: '겁먹은 강아지처럼 구는 꼴이 아주 맘에 안 들어. 그럴 거면 총은 폼으로 들고 다니나?' }
+          ],
+          logs: [
+            '기물 파손 경위서: H.T.P 부서의 통신 중계기를 크로우바로 파괴함. 이유는... 그냥 꼴도 보기 싫어서.',
+            '전투 기록: 프시케의 구출 대상이 H.T.P 요원이라는 것을 확인하자마자, 구조물과 함께 해당 요원까지 붕괴시킬 뻔한 것을 슈프리흐가 저지함.'
+          ]
+        }
+      },
+      {
+        id: 'member-disciple',
+        title: '\'제자\'',
+        description: '소속 요원',
+        profile: {
+          gender: '女',
+          department: '샤덴프로이데 (Schadenfreude)',
+          weapon: '권총',
+          personalityKeywords: ['소심한', '겁 많은', '애정결핍'],
+          relationships: [
+            { name: '슈프리흐', relation: '스승 / 절대적 의존', description: '스승님이 시키는 건 뭐든 할 수 있어요... 제발 절 버리지만 말아주세요. 시키는 대로, 가르쳐주신 대로 다 하고 있잖아요...' },
+            { name: '반달리', relation: '동료 / 공포 대상', description: '눈이 마주칠 때마다 절 죽일 것처럼 노려봐요... 너무 무서워서 권총 손잡이만 꽉 쥐게 돼요.' }
+          ],
+          logs: [
+            '훈련 기록: 오늘도 총을 쏠 때 반사적으로 눈을 감아버렸다. 스승님께 들켜서 실망하시면 안 되는데...',
+            '작전 수행: 슈프리흐 님의 지시대로 우회하던 표적의 다리를 정확히 쐈다. 피가 많이 나서 울음을 터뜨렸지만, 칭찬받을 걸 생각하니 안정이 되었다.'
+          ]
+        }
+      },
+      {
+        id: 'member-modernist',
+        title: '모더니스트',
+        description: '소속 요원',
+        profile: {
+          gender: '女',
+          department: '샤덴프로이데 (Schadenfreude)',
+          weapon: '철퇴',
+          personalityKeywords: ['세련된', '철없는', '방정맞은'],
+          features: [
+            '줄임말과 신조어를 많이 사용함',
+            '과장된 행동을 보임',
+            'ADHD',
+            '모더니스트가 진명이 아님'
+          ],
+          relationships: [
+            { name: '아달린', relation: '동료 / 노잼', description: '언니는 맨날 자기만 함 ㅠㅠ 텐션 쫌 올려서 나랑 놀아주면 안 되나? 옆에서 철퇴 붕붕 돌려도 안 깸 ㄹㅇ 신기;' },
+            { name: '반달리', relation: '동료 / 꿀잼 타겟', description: '반달찡 맨날 빡쳐있는 거 졸귀탱~ 뒤에서 몰래 접근해서 놀라게 하면 반응 개혜자임ㅋㅋ (어제 맞을 뻔함)' }
+          ],
+          logs: [
+            'SNS 업로드 차단 로그: 타겟 피지컬 폼 미쳤따리~ 철퇴로 뚝배기 깨고 인증샷! 올리려다 보안 채널 필터링에 걸려서 삭제됨 ㅠㅠ',
+            '징계 이력: 진지한 작전 회의 시간에 집중 안 돼서 자기 철퇴에 핑크색 리본 달고 예쁘다고 혼자 박수 치다가 쫓겨남.'
+          ]
+        }
       }
     ]
   }
