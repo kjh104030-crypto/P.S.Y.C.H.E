@@ -146,6 +146,30 @@ export const FACTIONS: LoreEntry[] = [
             '징계 이력: 진지한 작전 회의 시간에 집중 안 돼서 자기 철퇴에 핑크색 리본 달고 예쁘다고 혼자 박수 치다가 쫓겨남.'
           ]
         }
+      },
+      {
+        id: 'member-jason-pamela',
+        title: '제이슨 파멜라',
+        description: '소속 요원',
+        profile: {
+          gender: '女',
+          department: '샤덴프로이데 (Schadenfreude)',
+          weapon: '정글도',
+          personalityKeywords: ['불안정한', '시끄러운', '조용한'],
+          features: [
+            '배니싱 트윈으로 태어남',
+            '공복이 잦음',
+            '탐욕과 갈망'
+          ],
+          relationships: [
+            { name: '반달리', relation: '동료 / 먹이', description: '화내는 모습이 맛있어 보여... 한 입만 깨물어 봐도 될까? 안 되겠지...' },
+            { name: '슈프리흐', relation: '상관 / 불편함', description: '목소리가 너무 달다... 역겨워. 속이 메스꺼려질 정도로 달콤해서 다 토해내고 싶어.' }
+          ],
+          logs: [
+            '격리실 관찰 기록: 공복 상태가 길어지자 혼잣말 빈도가 급증하며, 정글도로 벽에 무의미한 긁은 자국을 냄.',
+            '전투 기록: 표적의 저항이 거세지자 기이한 포효와 함께 정글도를 난사함. 작전 종료 후에도 식욕을 주체하지 못해 강제 수면제를 투여받음.'
+          ]
+        }
       }
     ]
   }
@@ -422,10 +446,101 @@ export const PSYCHE_DEPTS: LoreEntry[] = [
     description: '정신 공간 인지 재해 집행부 내부의 정보를 정리하는 부서. 커피를 달고 산다.', 
     color: '#C6A34F',
     subContent: [
-      { id: 'member-1', title: '슈와므', description: '소속 요원' },
-      { id: 'member-2', title: '하레노이', description: '소속 요원' },
-      { id: 'member-3', title: '쟌', description: '소속 요원' },
-      { id: 'member-4', title: '이노', description: '소속 요원' }
+      { 
+        id: 'member-shwam', 
+        title: '슈와므', 
+        description: '소속 요원',
+        profile: {
+          gender: '女',
+          department: '주제통각 정보부',
+          weapon: "'케밥'(도검)",
+          personalityKeywords: ['피곤한', '능글맞은', '나른한'],
+          features: [
+            '건강미 있는 체형',
+            '슈와르마를 좋아함',
+            '먹는 것을 좋아함',
+            '운동을 좋아함'
+          ],
+          relationships: [
+            { name: '쟌', relation: '법적 보호자 / 피곤함', description: '쟌이 뭘 부술 때마다 뒤처리를 해야 해서 나른하다. 하지만 어쩔 수 없이 챙겨준다.' },
+            { name: '이노', relation: '동료 / 편함', description: '생각 없이 뱉는 말이 오히려 편하다. 밥 먹을 땐 별말 안 해서 좋다.' }
+          ],
+          logs: [
+            '점심 시간 로그: 오늘만 슈와르마 3개째 흡입 중. 장비에 흘린 소스 좀 닦길.',
+            '현장 출동: 자아심도 내에서 거대한 고기 형상의 구조물을 썰며 즐거워함.'
+          ]
+        }
+      },
+      { 
+        id: 'member-monad', 
+        title: '모나드', 
+        description: '소속 요원',
+        profile: {
+          gender: '女',
+          department: '주제통각 정보부',
+          weapon: '와이어',
+          personalityKeywords: ['무감정한', '분석적인', '은근 다정한'],
+          features: [
+            '타인의 감정을 구조로 이해하려 함',
+            '건망증이 있어 자주 메모함'
+          ],
+          relationships: [
+            { name: '이노', relation: '동료 / 관찰 대상', description: '감정을 구조적으로 이해하기 어려운 불규칙한 성향. 흥미롭다고 메모해둠.' },
+            { name: '슈와므', relation: '동료 / 음식 제공자', description: '가끔 건망증으로 밥 먹는 걸 잊을 때 슈와르마를 건네주는 다정한 동료.' }
+          ],
+          logs: [
+            '개인 메모장 발견: "이노의 말은 23% 확률로 진심. 슈와므의 포만감은 감정 안정에 즉각적 영향을 줌."이라고 적혀 있음.',
+            '정보 분석: 자아심도의 복잡한 감정 흐름을 와이어로 도식화하여 완벽한 지형 맵핑을 구현함.'
+          ]
+        }
+      },
+      { 
+        id: 'member-jean', 
+        title: '쟌', 
+        description: '소속 요원',
+        profile: {
+          gender: '女',
+          department: '주제통각 정보부',
+          weapon: '너클',
+          personalityKeywords: ['차가운', '효율중시', '이성적인'],
+          features: [
+            '슈와므의 법적 보호자',
+            '주제통각 정보부 최고참',
+            '자신의 의도와는 다르게 물건을 자주 부수거나 망가트림'
+          ],
+          relationships: [
+            { name: '슈와므', relation: '피보호자 / 미안함', description: '내가 부순 물건을 늘 치워주는 것에 내심 고마움과 미안함을 느낀다.' },
+            { name: '모나드', relation: '동료 / 업무 효율 파트너', description: '군더더기 없는 모나드의 보고는 효율적이어서 마음에 든다. 다만 메모지를 내가 가끔 찢어먹는다.' }
+          ],
+          logs: [
+            '장비 파손 보고서: 커피를 마시려다 머그컵 3개를 박살 내서 플라스틱 컵으로 강제 교체됨.',
+            '구조 임무: 닫힌 문을 섬세하게 열려고 했으나 의도치 않게 너클로 벽체 전체를 날려버림. 효율은 증대됨.'
+          ]
+        }
+      },
+      { 
+        id: 'member-ino', 
+        title: '이노', 
+        description: '소속 요원',
+        profile: {
+          gender: '女',
+          department: '주제통각 정보부',
+          weapon: '잭나이프',
+          personalityKeywords: ['냉소적인', '장난스러운', '피곤한'],
+          features: [
+            '타인의 입장을 생각하지 않고 말할 때가 있음',
+            '손톱을 물어뜯는 버릇이 있음'
+          ],
+          relationships: [
+            { name: '슈와므', relation: '동료 / 놀림감', description: '늘 피곤하게 누워 있어서 옆에 가서 귀찮은 농담을 던지는 재미가 쏠쏠하다.' },
+            { name: '쟌', relation: '최고참 / 팩트 폭격 타겟', description: '"선배님 또 부수셨네요"라고 말하다가 묵직한 살기를 체감하고 조용히 도망가곤 한다.' }
+          ],
+          logs: [
+            '동료 평가서: 팀 분위기를 가라앉히는 차가운 유머를 구사하지만 의외로 악의는 없.....아니 있는 것 같음.',
+            '작전 수행: 상대 현상체를 향한 무자비한 냉소적 도발로 주의를 끌고 잭나이프로 단번에 숨통을 끊음.'
+          ]
+        }
+      }
     ]
   },
   { 
@@ -434,10 +549,101 @@ export const PSYCHE_DEPTS: LoreEntry[] = [
     description: '정신 공간 인지 재해 집행부 내부의 상담을 담당하는 부서이자 침잠으로 개방된 자아심도를 담당한다. 자아심도 내부의 현상체와 상호작용 하여 드림 코어로 접근한다.', 
     color: '#FEF08A',
     subContent: [
-      { id: 'member-1', title: '티란', description: '소속 요원' },
-      { id: 'member-2', title: '데시마', description: '소속 요원' },
-      { id: 'member-3', title: '르셰', description: '소속 요원' },
-      { id: 'member-4', title: '아즈와', description: '소속 요원' }
+      { 
+        id: 'member-tyran', 
+        title: '티란', 
+        description: '소속 요원',
+        profile: {
+          gender: '女',
+          department: '로르샤흐 부서',
+          weapon: '장총',
+          personalityKeywords: ['과묵한', '경계심 강한', '집요한'],
+          features: [
+            '기면증',
+            '벽 쪽 자리를 선호함',
+            '타인의 시선을 지나치게 의식함'
+          ],
+          relationships: [
+            { name: '르셰', relation: '동료 / 안도감', description: '르셰는 체온 접촉을 싫어해서 곁에 있어도 시선이 덜 느껴져 벽 쪽에 함께 있기 편하다.' },
+            { name: '데시마', relation: '동료 / 번거로움', description: '데시마가 다쳐서 돌아오면 피 냄새 때문에 잠에서 깬다. 조심 좀 했으면 좋겠다.' }
+          ],
+          logs: [
+            '수면 기록: 자아심도 내 침잠 구역에서 기면증이 발동해 3시간 동안 수면을 취했으나 현상체가 알아채지 못함.',
+            '전투 기록: 수면 상태에서 깬 직후, 본능적인 집요함으로 타겟을 장총으로 정확히 저격.'
+          ]
+        }
+      },
+      { 
+        id: 'member-desima', 
+        title: '데시마', 
+        description: '소속 요원',
+        profile: {
+          gender: '女',
+          department: '로르샤흐 부서',
+          weapon: '권총',
+          personalityKeywords: ['공감', '다정한', '내면을 중요시하는'],
+          features: [
+            '냄새에 민감함',
+            '비위가 약함',
+            '자주 다침'
+          ],
+          relationships: [
+            { name: '르셰', relation: '동료 / 의지', description: '내가 비위가 상해서 못 보는 걸 르셰가 항상 덤덤하게 처리해줘서 고맙다. 장갑 낀 손이라도 잡고 싶다.' },
+            { name: '티란', relation: '동료 / 걱정', description: '티란이 또 어디 구석에서 자고 있을까 봐 걱정된다. 바닥은 찰 텐데.' }
+          ],
+          logs: [
+            '의무실 방문: 또 넘어져서 무릎이 까짐. 피 냄새에 헛구역질을 하며 르셰에게 업혀 옴.',
+            '상담 진행: 대상의 내면 깊숙한 상처에 공감하여 스스로 드림 코어를 내어주도록 설득 성공.'
+          ]
+        }
+      },
+      { 
+        id: 'member-rusche', 
+        title: '르셰', 
+        description: '소속 요원',
+        profile: {
+          gender: '女',
+          department: '로르샤흐 부서',
+          weapon: '메이스',
+          personalityKeywords: ['무덤덤한', '현실적인', '의외로 배려심 있는'],
+          features: [
+            '항상 장갑을 착용함',
+            '타인의 체온 접촉을 싫어함',
+            '비위가 강함'
+          ],
+          relationships: [
+            { name: '데시마', relation: '동료 / 손길이 많이 감', description: '허구한 날 다쳐오는 데시마가 귀찮지만, 비위가 약해 피도 못 보는 애라 어쩔 수 없이 내가 치운다.' },
+            { name: '아즈와', relation: '동료 / 기록 강박', description: '아즈와의 정돈된 기록과 분석은 내 현실적인 처리에 큰 도움이 된다. 체온이 오가지 않는 깔끔한 관계.' }
+          ],
+          logs: [
+            '오물 처리: 자아심도 내 기괴한 오물 지대를 맨앞에서 무덤덤하게 돌파하며 팀원들의 길을 염.',
+            '전투 기록: 메이스로 현상체를 잔혹하게 짓이겨놓음. 데시마는 이걸 보고 한 시간 동안 구역질을 함.'
+          ]
+        }
+      },
+      { 
+        id: 'member-azwa', 
+        title: '아즈와', 
+        description: '소속 요원',
+        profile: {
+          gender: '女',
+          department: '로르샤흐 부서',
+          weapon: '우산검',
+          personalityKeywords: ['차분한', '예민한', '강박적인'],
+          features: [
+            '비 오는 날에만 비교적 안정됨',
+            '기록 정리를 병적으로 좋아함'
+          ],
+          relationships: [
+            { name: '티란', relation: '동료 / 조용한 환경', description: '티란이 조용히 자는 동안 방해받지 않고 기록을 정리할 수 있어서 좋다.' },
+            { name: '르셰', relation: '동료 / 정보 교환', description: '르셰가 전해주는 날것의 지형 정보는 내 기록을 완성하는 데 필수적이다.' }
+          ],
+          logs: [
+            '기록 작업: 지난번 작전 내용을 폰트 크기 10, 줄 간격 160%로 완벽하게 정리하지 못해 밤을 샘.',
+            '비 오는 날: 비가 내리자 예민함이 눈에 띄게 줄어들어 우산검으로 드림 코어 해제 작업을 유연하게 수행함.'
+          ]
+        }
+      }
     ]
   },
   { 
@@ -446,9 +652,78 @@ export const PSYCHE_DEPTS: LoreEntry[] = [
     description: '예술가들로 이루어진 부서. 자아심도 내부의 배경을 분석하여 어느 감정들이 섞여 만들어진 자아심도인지를 추론해 드림 코어로 한결 수월하게 접근한다.', 
     color: '#A855F7',
     subContent: [
-      { id: 'member-1', title: '호넷', description: '소속 요원' },
-      { id: 'member-2', title: '스카라무슈', description: '소속 요원' },
-      { id: 'member-3', title: '트리비아', description: '소속 요원' }
+      { 
+        id: 'member-hornet', 
+        title: '호넷', 
+        description: '소속 요원',
+        profile: {
+          gender: '女',
+          department: 'H.T.P 부서',
+          weapon: '단창',
+          personalityKeywords: ['섬세한', '강박적인', '차분한'],
+          features: [
+            '정돈되고 깔끔한 일처리',
+            '상황 변화에 익숙함',
+            '점묘법'
+          ],
+          relationships: [
+            { name: '트리비아', relation: '예술적 동지', description: '트리비아가 조각하는 걸 보는 건 묘한 안정감을 준다. 나와는 다르게 느리지만 확실한 선이 있다.' },
+            { name: '스카라무슈', relation: '경계 / 수습 대상', description: '스카라무슈가 날뛸 때마다 피가 튀어 내 캔버스가 더러워지는 건 짜증나지만, 야성적인 면모는 가끔 영감을 준다.' }
+          ],
+          logs: [
+            '보고서: 자아심도의 캔버스 지대에서 점묘법으로 은폐된 적들의 위치를 파악하고 색채를 일일이 분해함.',
+            '일일 일지: 스카라무슈가 할퀴어놓은 서류들을 단창의 끝으로 정갈하게 모아 철했다.'
+          ]
+        }
+      },
+      { 
+        id: 'member-scaramouche', 
+        title: '스카라무슈', 
+        description: '소속 요원',
+        profile: {
+          gender: '女',
+          department: 'H.T.P 부서',
+          weapon: '없음',
+          personalityKeywords: ['야성미', '감정표현이 서툰', '과격한'],
+          features: [
+            '야만적인 전투방식(상대를 물어뜯거나 주변 물품을 집어던지며 전투)',
+            '무언가에 망설임이 없음',
+            '야수파'
+          ],
+          relationships: [
+            { name: '호넷', relation: '피곤한 참견쟁이', description: '매번 내 이빨을 닦으라느니, 옷을 깨끗하게 입으라느니 잔소리를 해댄다. 확 물어버릴까.' },
+            { name: '반달리', relation: '호승심', description: '샤덴프로이데의 그 녀석. 우리 부서를 싫어한다는데, 한 번 제대로 물어뜯어보고 싶다.' }
+          ],
+          logs: [
+            '징계 위원회 회부: 전투 중 아군 방패를 뺏어 적의 머리에 내리찍어 파손시킴.',
+            '사고 경위: 밥이 늦게 나왔다고 테이블을 물어뜯음.'
+          ]
+        }
+      },
+      { 
+        id: 'member-trivia', 
+        title: '트리비아', 
+        description: '소속 요원',
+        profile: {
+          gender: '女',
+          department: 'H.T.P 부서',
+          weapon: '정과 망치',
+          personalityKeywords: ['기기계적인', '무심한', '고지식한'],
+          features: [
+            '조각하는 것을 좋아함',
+            '자기 소유의 갤러리를 여는 것을 희망함',
+            '활동적인 것을 못함'
+          ],
+          relationships: [
+            { name: '호넷', relation: '동료 / 관람객', description: '호넷은 내 조각의 구조를 이해하는 몇 안 되는 사람이다. 가끔 내 작품에 자기 점을 찍으려 해서 문제지만.' },
+            { name: '스카라무슈', relation: '위험 요소', description: '내 작품 근처에 오지 못하게 해야 한다. 저번에도 다 된 대리석 하나를 부숴버렸다.' }
+          ],
+          logs: [
+            '개인 목표: 현상체의 잔해들을 모아 갤러리의 메인 전시품으로 쓸 만한 조각을 완성 중.',
+            '임무 결과: 조각하듯 정과 망치로 벽돌 구조물을 섬세하게 부숴 잠입 경로를 개척함.'
+          ]
+        }
+      }
     ]
   },
   { 
@@ -457,10 +732,101 @@ export const PSYCHE_DEPTS: LoreEntry[] = [
     description: '보통 \'웩슬러 부서\' 또는 \'쌍둥이 부서\'라고 불린다. 본래 떨어져있던 두 부서가 통합된 것으로, 초자아 또는 이드를 담당한다.', 
     color: 'mint-black',
     subContent: [
-      { id: 'member-1', title: '이혜인', description: '소속 요원' },
-      { id: 'member-2', title: '이다인', description: '소속 요원' },
-      { id: 'member-3', title: '베니', description: '소속 요원' },
-      { id: 'member-4', title: '바이스', description: '소속 요원' }
+      { 
+        id: 'member-hyein', 
+        title: '이혜인', 
+        description: '소속 요원',
+        profile: {
+          gender: '女',
+          department: 'WAIS, WISC 부서',
+          weapon: '없음',
+          personalityKeywords: ['온화한', '책임감 강한', '헌신적인'],
+          features: [
+            '부서 최고참',
+            '차를 좋아함',
+            '타인을 지나치게 챙김',
+            '다인의 언니'
+          ],
+          relationships: [
+            { name: '이다인', relation: '동생 / 과보호 대상', description: '내 소중한 동생. 혹시라도 다칠까 봐 늘 노심초사한다. 군것질거리도 늘 챙겨줘야 한다.' },
+            { name: '바이스', relation: '동료 / 티타임 메이트', description: '완벽주의 때문에 늘 곤두서 있는 바이스에게 따뜻한 차 한 잔을 내어주면 그나마 분위기가 풀린다.' }
+          ],
+          logs: [
+            '업무 일지: 다인이 또 임무 중 길을 잃을 뻔했다. 다음부터는 내 옷자락을 꼭 쥐게 해야겠다.',
+            '인사과 면담: 타인을 지나치게 챙기다 본인의 안전을 위협받은 적이 있어 경고 조치.'
+          ]
+        }
+      },
+      { 
+        id: 'member-dain', 
+        title: '이다인', 
+        description: '소속 요원',
+        profile: {
+          gender: '女',
+          department: 'WAIS, WISC 부서',
+          weapon: '스턴건',
+          personalityKeywords: ['활발한', '낙천적인', '충동적인'],
+          features: [
+            '혜인을 잘따름',
+            '군것질',
+            '눈치가 빠름',
+            '혜인의 여동생'
+          ],
+          relationships: [
+            { name: '이혜인', relation: '언니 / 절대적인 내 편', description: '언니는 날 너무 어린애 취급하긴 하지만, 그래도 언니 옆이 제일 포근하고 안전하다.' },
+            { name: '베니', relation: '동료 / 관찰 대상', description: '베니는 늘 조용하지만 눈치가 보여서 언제 베나가 튀어나올지 맞추는 놀이를 혼자 속으로 한다.' }
+          ],
+          logs: [
+            '근무 태만 내역: 작전 중 현상체가 떨어뜨린 사탕 모양의 환각 인자를 입에 넣으려다 언니에게 제지당함.',
+            '현장 기록: 눈치가 빨라 파티클의 움직임만 보고 적의 매복을 예측, 스턴건으로 선제 제압함.'
+          ]
+        }
+      },
+      { 
+        id: 'member-benny', 
+        title: '베니', 
+        description: '소속 요원',
+        profile: {
+          gender: '女',
+          department: 'WAIS, WISC 부서',
+          weapon: '카람빗',
+          personalityKeywords: ['무심한', '조용한', '이성적인'],
+          features: [
+            '해리성 인격장애. 베나라는 정 반대의 성격을 지닌 제 2인격을 지니고 있다.'
+          ],
+          relationships: [
+            { name: '바이스', relation: '동료 / 예측 불허를 싫어함', description: '바이스는 완벽을 추구해서 나의 통제 불능 상태(베나 출현)를 극도로 혐오한다. 나도 그게 미안하다.' },
+            { name: '이다인', relation: '동료 / 귀찮은 아이', description: '자꾸 내 옆에서 나를 은근슬쩍 건드려본다. 내가 베나로 변하길 기다리는 눈치다.' }
+          ],
+          logs: [
+            '의무실 상담: 베나가 또 작전 중 갑자기 카람빗으로 혼자 벽을 긁었다고 한다. 기억이 나지 않는다.',
+            '현장 보고서: 적의 기습 순간 갑작스럽게 베나가 나타나 180도 다른 잔혹한 전투 방식으로 적을 도륙함.'
+          ]
+        }
+      },
+      { 
+        id: 'member-weiss', 
+        title: '바이스', 
+        description: '소속 요원',
+        profile: {
+          gender: '女',
+          department: 'WAIS, WISC 부서',
+          weapon: '지휘봉',
+          personalityKeywords: ['엄격한', '냉철한', '완벽주의'],
+          features: [
+            '정리 강박',
+            '실패 공포증'
+          ],
+          relationships: [
+            { name: '이혜인', relation: '동료 / 유일한 안식처', description: '실패에 대한 압박으로 숨이 막힐 때 혜인이 주려는 찻잔의 온기만큼은 내 강박을 조금 누그러뜨린다.' },
+            { name: '베니 / 베나', relation: '동료 / 최악의 변수', description: '작전의 완벽한 플랜을 항상 망치는 변수. 이중인격은 정말 통제하기 힘든 불쾌한 현상이다.' }
+          ],
+          logs: [
+            '사고 보고서: 실패 공포증으로 인해 진입 지휘를 내리지 못하고 3분간 지연, 다행히 피해 없이 수습됨.',
+            '정리 작업: 복귀 후 무기고의 모든 무기들을 각도 0.01도의 오차도 없이 일렬로 재배치함.'
+          ]
+        }
+      }
     ]
   },
   { 
@@ -469,10 +835,97 @@ export const PSYCHE_DEPTS: LoreEntry[] = [
     description: '정신 공간 인지 재해 집행부 내부의 질서를 바로잡는 부서. 자아심도를 받아들여 장신구가 있는 자들로 구성된다.', 
     color: '#991B1B',
     subContent: [
-      { id: 'member-1', title: '마우그리스', description: '소속 요원' },
-      { id: 'member-2', title: '캐러독', description: '소속 요원' },
-      { id: 'member-3', title: '로베이라', description: '소속 요원' },
-      { id: 'member-4', title: '막야', description: '소속 요원' }
+      { 
+        id: 'member-maugris', 
+        title: '마우그리스', 
+        description: '소속 요원',
+        profile: {
+          gender: '女',
+          department: '초자아 징계부',
+          weapon: '없음',
+          personalityKeywords: ['고지식한', '냉정한', '보호 본능'],
+          features: [
+            '규율 집착',
+            '후배를 몰래 챙김'
+          ],
+          relationships: [
+            { name: '캐러독', relation: '아끼는 후배', description: '직선적이지만 충성스러운 점이 마음에 든다. 칭찬에 약한 걸 알고 가끔 머리를 쓰다듬어 주면 굳어버린다.' },
+            { name: '로베이라', relation: '얄미운 동료', description: '로베이라의 계산적인 면과 독설은 솔직히 피곤하지만, 임무에서의 확실한 일처리는 인정할 수밖에 없다.' }
+          ],
+          logs: [
+            '내무반 순찰: 규율을 어기고 늦게까지 깨어있던 신입 요원들에게 원칙을 1시간 읊어주고, 몰래 야식을 남겨두고 옴.',
+            '비상 사태: 규율이 무너진 전황 속에서 냉정하게 대열을 유지하라 소리치며 흔들리지 않는 지휘를 보임.'
+          ]
+        }
+      },
+      { 
+        id: 'member-caradoc', 
+        title: '캐러독', 
+        description: '소속 요원',
+        profile: {
+          gender: '女',
+          department: '초자아 징계부',
+          weapon: '해킹툴',
+          personalityKeywords: ['직선적인', '충성스러운', '무뚝뚝한'],
+          features: [
+            '칭찬에 약함'
+          ],
+          relationships: [
+            { name: '마우그리스', relation: '존경하는 선배', description: '가끔 원리원칙만 내세우긴 해도 그 이면의 따뜻함을 안다. 나를 칭찬해주실 때마다 표정 관리가 안 된다.' },
+            { name: '막야', relation: '이해불가 동료', description: '말이 너무 없어서 무슨 생각을 하는지 해킹툴로도 읽을 수 없다.' }
+          ],
+          logs: [
+            '작전 수행: 적대적 무인 방어 시스템을 해킹. "잘했다"는 선배의 무전 한마디에 3초간 입력 지연이 발생함.',
+            '근무 평가: 충성심 최상, 작전 이해도 최상. 단, 포상 휴가라는 단어에 얼굴이 붉어지는 약점이 있음.'
+          ]
+        }
+      },
+      { 
+        id: 'member-robeira', 
+        title: '로베이라', 
+        description: '소속 요원',
+        profile: {
+          gender: '女',
+          department: '초자아 징계부',
+          weapon: '진압봉',
+          personalityKeywords: ['우아한', '냉소적인', '계산적인'],
+          features: [
+            '독설가',
+            '홍차 애호가',
+            '평범함'
+          ],
+          relationships: [
+            { name: '마우그리스', relation: '재미있는 타겟', description: '저 융통성 없는 선배의 고지식함은 내 독설을 꽂아넣기 아주 좋은 과녁이다.' },
+            { name: '막야', relation: '조용한 티타임 상대', description: '말없이 내 홍차를 받아 마시는 그 시큰둥함이 오히려 평화롭다.' }
+          ],
+          logs: [
+            '징계 위원회 발언: "당신의 그 멍청한 판단이 부서장님의 인내심보다 짧네요"라며 진압봉 없이도 상대를 제압함.',
+            '휴식 시간: 긴박한 출동 직전에도 온도를 정확히 맞춘 홍차 한 잔을 다 비운 뒤에야 진압봉을 들쳐 멤.'
+          ]
+        }
+      },
+      { 
+        id: 'member-makya', 
+        title: '막야', 
+        description: '소속 요원',
+        profile: {
+          gender: '女',
+          department: '초자아 징계부',
+          weapon: '없음',
+          personalityKeywords: ['고요한', '시큰둥한', '보수적인'],
+          features: [
+            '말수가 적음'
+          ],
+          relationships: [
+            { name: '로베이라', relation: '홍차 셔틀', description: '가끔 주는 홍차는 맛있다. 하지만 굳이 말로 표현하진 않는다.' },
+            { name: '캐러독', relation: '시끄러움', description: '너무 직선적이라 속이 다 보인다. 귀찮지만 나쁜 녀석은 아니다.' }
+          ],
+          logs: [
+            '관찰 일지: 하루 종일 세 문장 이상을 말하지 않음. 첫 번째 "임무 끝.", 두 번째 "밥.", 세 번째 "잔다."',
+            '전투 기록: 그림자처럼 조용히 다가가 아무런 무장 없이 적의 급소를 타격해 무력화시킴.'
+          ]
+        }
+      }
     ]
   },
   { 
@@ -481,9 +934,74 @@ export const PSYCHE_DEPTS: LoreEntry[] = [
     description: '새로 창설된 부서. 포괄적인 업무를 담당받는다.', 
     color: '#FFFFFF',
     subContent: [
-      { id: 'member-1', title: '태아', description: '소속 요원' },
-      { id: 'member-2', title: '마거릿', description: '소속 요원' },
-      { id: 'member-3', title: '독타', description: '소속 요원' }
+      { 
+        id: 'member-taeea', 
+        title: '태아', 
+        description: '소속 요원',
+        profile: {
+          gender: '女',
+          department: '지그문트 부서',
+          weapon: '없음',
+          personalityKeywords: ['몽롱한', '의존적인', '나약한'],
+          features: [
+            '담요를 들고 다님'
+          ],
+          relationships: [
+            { name: '독타', relation: '보호자', description: '교관님이 항상 나를 버리지 않을 거라 믿어요. 교관님 냄새가 나는 담요가 좋아요.' },
+            { name: '마거릿', relation: '무서운 언니', description: '총소리도 너무 크고, 가끔 미친 듯이 웃을 때면 담요 속에 숨고 싶어.' }
+          ],
+          logs: [
+            '신규 부서 발령: 의사소통을 거부하고 담요를 뒤집어쓴 채 구석에 웅크려 2시간을 보냄.',
+            '작전 수행: 몽롱한 상태로 전장을 떠돌다 우연인지 필연인지 적의 공격을 전부 흘려보냄.'
+          ]
+        }
+      },
+      { 
+        id: 'member-margaret', 
+        title: '마거릿', 
+        description: '소속 요원',
+        profile: {
+          gender: '女',
+          department: '지그문트 부서',
+          weapon: '산탄총',
+          personalityKeywords: ['쾌활한', '광기어린', '감정기복 심한'],
+          features: [
+            '꽃을 좋아함'
+          ],
+          relationships: [
+            { name: '독타', relation: '잔소리꾼 교관', description: '하하! 독타 교관님은 늘 만사를 귀찮아하시지만 내 산탄총이 불을 뿜으면 어쩔 수 없이 움직이시죠!' },
+            { name: '태아', relation: '답답한 동생', description: '그 칙칙한 담요 좀 치우고 예쁜 꽃을 보라니까! 안개꽃 같은 화약 냄새를 좋아하려나!' }
+          ],
+          logs: [
+            '장비 점검: 산탄총 총구에 노란 들꽃을 꽂아두어 독타 교관에게 주의를 받음.',
+            '전투 기록: 미친 듯이 웃으며 산탄총을 난사한 후, 피투성이가 된 바닥에 꽃송이를 하나 내려놓음.'
+          ]
+        }
+      },
+      { 
+        id: 'member-dokta', 
+        title: '독타', 
+        description: '소속 요원',
+        profile: {
+          gender: '女',
+          department: '지그문트 부서',
+          weapon: '의료톱',
+          personalityKeywords: ['차분한', '다정한', '친절한'],
+          features: [
+            '지그문트 부서 교관',
+            '가끔 만사를 귀찮아함',
+            '애주가'
+          ],
+          relationships: [
+            { name: '태아', relation: '손이 많이 가는 아이', description: '휴... 담요 빨래는 또 내가 해야 하나. 귀찮아 죽겠군. 그래도 버리고 갈 순 없지.' },
+            { name: '마거릿', relation: '골칫거리', description: '진짜 돌아버리겠군. 얌전히 좀 있으라고! 오늘 저녁엔 독한 보드카를 마셔야겠어.' }
+          ],
+          logs: [
+            '교관 일지: 신규 부서는 말 안 듣는 강아지 유치원 같다. 맥주... 맥주가 필요하다.',
+            '전투 기록: 귀찮다는 듯이 한숨을 쉬며 의료톱의 시동을 걸곤, 순식간에 몰려드는 환영들의 팔다리를 절단해버림.'
+          ]
+        }
+      }
     ]
   }
 ];
